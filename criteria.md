@@ -25,9 +25,7 @@ Given a query that matches at least one listing, the agent completes all three
 tool calls and returns a fit card — in at least 4 of 5 tries.
 
 **Why this target:**
-<!-- Why 4 of 5 and not 5 of 5? Something about your search, probably —
-     "my search is a plain keyword match and some phrasings will miss" is a
-     real answer. -->
+     I think key word matching is likely to miss. When I use sites like depop people will mispell names of items or do things like "tee" and "tshirt" which won't always match what I am looking for.
 
 ---
 
@@ -37,12 +35,12 @@ Given a query that matches no listings, the agent stops before calling
 `suggest_outfit` and returns a message naming what to change — 5 of 5 tries.
 
 **Why this target:**
-<!-- Why is 5 of 5 reasonable here when criterion 1 isn't? What's different
-     about this path? -->
-
+      5 of 5 works here because, the regex parse and the search are plain Python, so the same query gives the same result every time.
 ---
 
 ## 3. Something about state
+
+Given a matching query, the id of session["selected_item"] equals session["search_results"][0]["id"] and the id of the item passed to suggest_outfit and to create_fit_card, in 5 of 5 tries.
 
 <!-- YOU WRITE THIS ONE.
 
@@ -58,11 +56,13 @@ Given a query that matches no listings, the agent stops before calling
 
 **Why this target:**
 
-
+     Comparing the id beayse the title could match, and often does on marketplaces, but the item id is unique. 
 
 ---
 
 ## 4. Something about the fit card
+
+Across 5 different matching items, the fit card states the item's actual price and platform in at least 4 of 5 cards. 
 
 <!-- YOU WRITE THIS ONE.
 
@@ -78,12 +78,14 @@ Given a query that matches no listings, the agent stops before calling
 
 
 **Why this target:**
-
+     This is not 5 of 5 becuse of temperature. Temperature causes the model's wording to vary on purpose. This will likely cause a detail to be left out
 
 
 ---
 
 ## 5. Your choice
+
+For 5 queries with a price like "under $30", every listing in search_results costs no more than max_price, in 5 of 5 tries.
 
 <!-- YOU WRITE THIS ONE TOO.
 
@@ -95,7 +97,7 @@ Given a query that matches no listings, the agent stops before calling
 
 
 **Why this target:**
-
+This is 5 of 5 because its a plan python filter with no model involved. This is my sort of sanity check to make sure filters are working. 
 
 
 ---
