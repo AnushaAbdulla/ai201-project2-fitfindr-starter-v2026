@@ -47,36 +47,26 @@
 
 ## Tool Inventory
 
-<!-- Four lines per tool. This is worth 2 points and it's the single most
-     common place students lose them.
-
-     "Returns a list" earns NOTHING. The description has to say what is IN
-     the list.
-
-     The empty case isn't optional either — it's the thing your loop branches
-     on, and if you don't decide it here you'll discover it as a crash in
-     Milestone 5. -->
-
 ### `search_listings`
 
-- **What it does:**
-- **Inputs:** <!-- name and type each: `max_price` (float), not "a price" -->
-- **Returns:**
-- **When it has nothing:**
+- **What it does:** Searches the listings data for items that match the query.
+- **Inputs:** This tool takes the item description (string), size (string), and max_price (float). <!-- name and type each: `max_price` (float), not "a price" -->
+- **Returns:**  It returns a list of matching listing dictionaries with all the tiem information such as id, title, description, category, etc.
+- **When it has nothing:** When nothing is found it just returns an empty list with no errors.
 
 ### `suggest_outfit`
 
-- **What it does:**
-- **Inputs:**
-- **Returns:**
-- **When it has nothing:**
+- **What it does:** Suggests an outift which is a pair found items from search_listings.
+- **Inputs:** This tool takes a new_item dictionary and a wardrobe dictionary
+- **Returns:** a non empty string with the outsit suggestions. 
+- **When it has nothing:** If the wardrobe is empty it returns general styling advice.
 
 ### `create_fit_card`
 
-- **What it does:**
-- **Inputs:**
-- **Returns:**
-- **When it has nothing:**
+- **What it does:** Creates the final "fit card" for each outfit. 
+- **Inputs:** This tool takes an outfit string, and a new_item dictionary.
+- **Returns:** It returns a caption of 2-4 sentences.
+- **When it has nothing:** If the outift is empty it wil return a descriptive message rather than an error. 
 
 ---
 
@@ -93,13 +83,13 @@
      The grader checks your code against what you claim here, so the file and
      function have to be real. -->
 
-**Branch rule:**
+**Branch rule:** If search_lsitings returns an empty list, set session["error"] to a message telling the user what they could change (for example, raise the price limit, try a different size, etc.), then return the session without calling the other 2 functions. Otherwise, take the first results as session["selected_item"] and go on to suggest_outfit, then create_fit_card.
 
 **Where it lives:** `agent.py::run_agent`
 
-**How the query is parsed:** <!-- regex, string splitting, or asking the model — say which -->
+**How the query is parsed:** Regex. under \$(\d+) gives max_price (a float). size (\w+) gives size. Whatever text is left after removing those parts becomes description.<!-- regex, string splitting, or asking the model — say which -->
 
-**What moves through the session:** <!-- which fields, in what order -->
+**What moves through the session:** query → parsed (description, size, max_price) → search_results → selected_item → outfit_suggestion → fit_card. error is set only if the run stops early. <!-- which fields, in what order -->
 
 ---
 
